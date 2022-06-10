@@ -10,9 +10,10 @@
     flake-utils.lib.eachDefaultSystem (system:
       let
         pkgs = nixpkgs.legacyPackages.${system};
+        nixosRelease = import "${pkgs.path}/nixos/release.nix" {};
       in
         {
-          devShell = import ./develop.nix { inherit pkgs; };
+          devShell = import ./develop.nix { inherit pkgs nixosRelease; };
         }
     );
 }

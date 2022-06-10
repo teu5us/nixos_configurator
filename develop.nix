@@ -1,14 +1,15 @@
-{ pkgs }:
+{ pkgs, nixosRelease }:
 
 with pkgs;
 
 mkShell {
   buildInputs = [
-    (python.withPackages (ps: with ps; [
+    (python3.withPackages (ps: with ps; [
       django
     ]))
   ];
   shellHook = ''
     . ./.env
+    [ ! -f options.json ] && cp "${nixosRelease.options}/share/doc/nixos/options.json" ./
   '';
 }
